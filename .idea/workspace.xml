@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5fd6db47-8f2a-4961-893d-ea766b149c5e" name="Changes" comment="Check Spring Boot">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/Bill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/Items.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/services/PeopleServices.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/splitable/controller/PeopleController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/example/splitable/model/People.class" afterDir="false" />
+    <list default="true" id="5fd6db47-8f2a-4961-893d-ea766b149c5e" name="Changes" comment="People service implemented.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/splitable/controller/PeopleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/controller/PeopleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/People.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/People.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/splitable/SplitableApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/splitable/SplitableApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/model/Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/splitable/services/PeopleServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/splitable/services/PeopleServices.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +62,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761226636091</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="People service implemented.">
+      <option name="closed" value="true" />
+      <created>1762121795755</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762121795755</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -84,6 +86,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Check Spring Boot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Check Spring Boot" />
+    <MESSAGE value="People service implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="People service implemented." />
   </component>
 </project>

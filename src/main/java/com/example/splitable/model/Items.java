@@ -9,7 +9,7 @@ public class Items {
     private ArrayList<People> taggedPeople;
     //constructors
     public Items(){}
-    public Items(int id, String name, float cost, ArrayList people){
+    public Items(int id, String name, float cost, ArrayList<People> people){
         this.item_id=id;
         this.ItemName=name;
         this.cost=cost;

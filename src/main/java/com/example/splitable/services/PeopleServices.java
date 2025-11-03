@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class PeopleServices {
-    private List<People> ListOfPeople = new ArrayList<>();
+    private final List<People> ListOfPeople = new ArrayList<>();
 
     public People addPeople(People p){
         ListOfPeople.add(p);
