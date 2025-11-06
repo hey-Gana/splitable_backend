@@ -38,4 +38,12 @@ public class Bill {
         return tips;
     }
 
+    public boolean getTaxPercent(){
+        return tax_percent;
+    }
+
+    public boolean getTipsPercent(){
+        return tips_percent;
+    }
+
 }
