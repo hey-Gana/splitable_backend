@@ -106,6 +106,11 @@ public class ItemServices {
         return item;
     }
 
+    //function to remove item
+    public List<Items> removeItem(int itemId){
+        ListOfItems.removeIf(item -> item.getItem_id()==itemId);
+        return ListOfItems;
+    }
 
 
 

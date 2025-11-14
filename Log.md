@@ -9,7 +9,6 @@
 
 ## To do
 - error handling
-- Ability to add and remove items, people
 - Add portion information for each person tagged to an item
 - Calculate splits for individual person
 - Add database
