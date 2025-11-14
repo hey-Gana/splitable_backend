@@ -1,9 +1,11 @@
 package com.example.splitable.controller;
 
 import com.example.splitable.model.Items;
+import com.example.splitable.model.People;
 import com.example.splitable.services.ItemServices;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -25,4 +27,17 @@ public class ItemsController {
     public Items addItems(@RequestBody Items i){
         return itmserv.addItems(i);
     }
+
+    @PatchMapping("/{itemId}/tag")
+    public Items tagPeopleToItem(@PathVariable int itemId, @RequestBody People[] peopleArray){
+        List<People> people = Arrays.asList(peopleArray);
+        return itmserv.tagPeopleToItem(itemId, people);
+    }
+
+    @PatchMapping("/{itemId}/remove")
+    public Items removeTaggedPeopleFromItem(@PathVariable int itemId, @RequestBody People person){
+        return itmserv.removePeopleFromItem(itemId,person);
+    }
+
+
 }

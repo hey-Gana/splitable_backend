@@ -11,8 +11,8 @@ public class People {
         this.pname=name;
         this.split_amount=amount;
     }
-    //getters & setters
 
+    //getters & setters
     public String getPname() {
         return pname;
     }

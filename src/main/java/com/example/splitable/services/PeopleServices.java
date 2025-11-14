@@ -19,5 +19,4 @@ public class PeopleServices {
         return new ArrayList<>(ListOfPeople);
     }
 
-
 }

@@ -23,7 +23,7 @@ public class BillController {
     @GetMapping("/total")
     public float calculateGrandTotal(@RequestBody Bill bill){
         List<Items> items = itemServices.getAllItems();
-        float subtotal = itemServices.calculateSubtotal(items);
+        float subtotal = itemServices.calculateSubtotal(items); 
         return billServices.calculateGrandTotal(subtotal, bill);
     }
 

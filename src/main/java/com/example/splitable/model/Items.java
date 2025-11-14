@@ -6,7 +6,7 @@ public class Items {
     private int item_id;
     private String ItemName;
     private float cost;
-    private ArrayList<People> taggedPeople;
+    private ArrayList<People> taggedPeople = new ArrayList<>();
     //constructors
     public Items(){}
     public Items(int id, String name, float cost, ArrayList<People> people){
