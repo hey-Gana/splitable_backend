@@ -2,6 +2,7 @@ package com.example.splitable.controller;
 
 import com.example.splitable.model.Items;
 import com.example.splitable.model.People;
+import com.example.splitable.model.TaggedPeople;
 import com.example.splitable.services.ItemServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,13 @@ public class ItemsController {
     }
 
     @PatchMapping("/tag/{itemId}")
-    public Items tagPeopleToItem(@PathVariable int itemId, @RequestBody People[] peopleArray){
-        List<People> people = Arrays.asList(peopleArray);
+    public Items tagPeopleToItem(@PathVariable int itemId, @RequestBody TaggedPeople[] peopleArray){
+        List<TaggedPeople> people = Arrays.asList(peopleArray);
         return itmserv.tagPeopleToItem(itemId, people);
     }
 
     @PatchMapping("/remove/{itemId}")
-    public Items removeTaggedPeopleFromItem(@PathVariable int itemId, @RequestBody People person){
+    public Items removeTaggedPeopleFromItem(@PathVariable int itemId, @RequestBody TaggedPeople person){
         return itmserv.removePeopleFromItem(itemId,person);
     }
 

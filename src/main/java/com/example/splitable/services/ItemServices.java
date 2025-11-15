@@ -2,6 +2,7 @@ package com.example.splitable.services;
 
 import com.example.splitable.model.Items;
 import com.example.splitable.model.People;
+import com.example.splitable.model.TaggedPeople;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ public class ItemServices {
     //function to add items
     public Items addItems(Items i){
         //checking if People exist to tag to the item
-        for(People p : i.getTaggedPeople()){
+        for(TaggedPeople p : i.getTaggedPeople()){
             boolean exists = pplserv.getAllPeople().stream()
                     .anyMatch(person -> person.getPid() == p.getPid());
             if(!exists){
-                throw new IllegalArgumentException("Tagged Person with id"+p.getPid()+" doesn't exist");
+                throw new IllegalArgumentException("Tagged Person with id "+p.getPid()+" doesn't exist");
             }
 
         }
@@ -41,7 +42,7 @@ public class ItemServices {
     }
 
     //function to tag person to an item
-    public Items tagPeopleToItem(int itemID, List<People> people){
+    public Items tagPeopleToItem(int itemID, List<TaggedPeople> people){
         Items item=null;
         //check if item exists
         for(Items i:ListOfItems){
@@ -56,7 +57,7 @@ public class ItemServices {
 
         //check if people exist
         List<People> checkPeople=pplserv.getAllPeople();
-        for(People p:people){
+        for(TaggedPeople p:people){
             boolean exists = false;
             for(People chk:checkPeople){
                 if(chk.getPid()== p.getPid()){
@@ -70,9 +71,9 @@ public class ItemServices {
         }
 
         //add person, without duplicates
-        for (People p:people){
+        for (TaggedPeople p:people){
             boolean alreadyTagged=false;
-            for (People existing:item.getTaggedPeople()){
+            for (TaggedPeople existing:item.getTaggedPeople()){
                 if(existing.getPid()==p.getPid()){
                     alreadyTagged=true;
                 }
@@ -87,7 +88,7 @@ public class ItemServices {
 
 
     //function to remove tagged people from an item
-    public Items removePeopleFromItem(int itemID,People person){
+    public Items removePeopleFromItem(int itemID,TaggedPeople person){
         //check item
         Items item=null;
         for(Items i:ListOfItems){
@@ -112,7 +113,22 @@ public class ItemServices {
         return ListOfItems;
     }
 
-
+//    //function to change the portion for a person in an item
+//    public Items changePortionForTaggedPerson(int itemId,TaggedPeople person){
+//        //check if item exists
+//        Items item=null;
+//        for(Items i: ListOfItems){
+//            if(i.getItem_id()==itemId){
+//                item=i;
+//                break;
+//            }
+//        }
+//        if(item==null){
+//            throw new IllegalArgumentException("Item not found!");
+//        }
+//        //
+//
+//    }
 
     public float calculateSubtotal(List<Items> ListOfItems){
         float subtotal=0;

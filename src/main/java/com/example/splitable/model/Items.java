@@ -6,14 +6,14 @@ public class Items {
     private int item_id;
     private String ItemName;
     private float cost;
-    private ArrayList<People> taggedPeople = new ArrayList<>();
+    private ArrayList<TaggedPeople> taggedPeople = new ArrayList<>();
     //constructors
     public Items(){}
-    public Items(int id, String name, float cost, ArrayList<People> people){
+    public Items(int id, String name, float cost, ArrayList<TaggedPeople> taggedpeople){
         this.item_id=id;
         this.ItemName=name;
         this.cost=cost;
-        this.taggedPeople=people;
+        this.taggedPeople=taggedpeople;
     }
 
     //getters & setters
@@ -29,7 +29,7 @@ public class Items {
         ItemName = itemName;
     }
 
-    public void setTaggedPeople(ArrayList<People> taggedPeople) {
+    public void setTaggedPeople(ArrayList<TaggedPeople> taggedPeople) {
         this.taggedPeople = taggedPeople;
     }
 
@@ -45,7 +45,7 @@ public class Items {
         return cost;
     }
 
-    public ArrayList<People> getTaggedPeople() {
+    public ArrayList<TaggedPeople> getTaggedPeople() {
         return taggedPeople;
     }
 }
