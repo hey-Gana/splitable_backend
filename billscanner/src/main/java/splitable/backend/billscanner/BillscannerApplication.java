@@ -1,4 +1,4 @@
-package spoilable.backend.billscanner;
+package splitable.backend.billscanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

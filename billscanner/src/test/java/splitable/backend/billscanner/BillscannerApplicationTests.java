@@ -1,4 +1,4 @@
-package spoilable.backend.billscanner;
+package splitable.backend.billscanner;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
