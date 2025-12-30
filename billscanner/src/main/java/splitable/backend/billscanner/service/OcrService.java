@@ -3,59 +3,25 @@ package splitable.backend.billscanner.service;
 import com.google.cloud.vision.v1.*;
 import com.google.protobuf.ByteString;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 @Service
 public class OcrService {
 
-    //Reads an image from a local file path and extracts text using Google Vision OCR
-     
-    public String extractTextFromImage(String imagePath) throws IOException {
+    public String extractTextFromImage(String imagePath) throws Exception {
+        ByteString imgBytes = ByteString.copyFrom(Files.readAllBytes(Path.of(imagePath)));
+        Image image = Image.newBuilder().setContent(imgBytes).build();
 
-        //Read image bytes from local file
-        byte[] imageBytes = Files.readAllBytes(Path.of(imagePath));
-        ByteString imgBytes = ByteString.copyFrom(imageBytes);
-
-        //Create Vision Image object
-        Image image = Image.newBuilder()
-                .setContent(imgBytes)
-                .build();
-
-        //Specify OCR feature for receipts & bills
-        Feature feature = Feature.newBuilder()
-                .setType(Feature.Type.DOCUMENT_TEXT_DETECTION)
-                .build();
-
-        //Build the Vision API request
+        Feature feature = Feature.newBuilder().setType(Feature.Type.DOCUMENT_TEXT_DETECTION).build();
         AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
-                .setImage(image)
                 .addFeatures(feature)
+                .setImage(image)
                 .build();
 
-        //Create client & send request
         try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
-
-            List<AnnotateImageResponse> responses =
-                    client.batchAnnotateImages(List.of(request)).getResponsesList();
-
-            if (responses.isEmpty()) {
-                throw new RuntimeException("No response from Vision API");
-            }
-
-            AnnotateImageResponse response = responses.get(0);
-
-            //Handle API errors
-            if (response.hasError()) {
-                throw new RuntimeException(
-                        "Vision API Error: " + response.getError().getMessage()
-                );
-            }
-
-            //Extract and return full OCR text
+            AnnotateImageResponse response = client.batchAnnotateImages(java.util.List.of(request))
+                    .getResponsesList().get(0);
             return response.getFullTextAnnotation().getText();
         }
     }

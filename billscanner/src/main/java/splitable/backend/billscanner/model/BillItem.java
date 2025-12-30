@@ -2,35 +2,18 @@ package splitable.backend.billscanner.model;
 
 public class BillItem {
     private String name;
-    private double price;
+    private double amount;
 
-    // constructor
-    public BillItem() {
-    }
-
-   
-    public BillItem(String name, double price) {
+    public BillItem(String name, double amount) {
         this.name = name;
-        this.price = price;
+        this.amount = amount;
     }
 
-    // Getter for name
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public double getAmount() { return amount; }
 
-    // Setter for name
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getter for price
-    public double getPrice() {
-        return price;
-    }
-
-    // Setter for price
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public String toString() {
+        return name + " : $" + amount;
     }
 }
