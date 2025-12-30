@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import splitable.backend.billscanner.service.VisionService;
+//import splitable.backend.billscanner.service.VisionService;
 
 
 
@@ -17,12 +17,12 @@ import splitable.backend.billscanner.service.VisionService;
 @RestController
 @RequestMapping("/api/bill")
 public class BillController {
-    private final VisionService visionService;
+    // private final VisionService visionService;
 
-    //initializing the service
-    public BillController(VisionService visionService) {
-        this.visionService = visionService;
-    }
+    // //initializing the service
+    // public BillController(VisionService visionService) {
+    //     this.visionService = visionService;
+    // }
 
     //Post Request Mapping 
     @PostMapping("/scan")
