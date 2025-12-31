@@ -3,25 +3,45 @@ package splitable.backend.billscanner.service;
 import com.google.cloud.vision.v1.*;
 import com.google.protobuf.ByteString;
 import org.springframework.stereotype.Service;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
+import java.util.List;
 
 @Service
 public class OcrService {
 
-    public String extractTextFromImage(String imagePath) throws Exception {
-        ByteString imgBytes = ByteString.copyFrom(Files.readAllBytes(Path.of(imagePath)));
-        Image image = Image.newBuilder().setContent(imgBytes).build();
+    /**
+     * Extracts text from image bytes using Google Vision API
+     */
+    public String extractTextFromImage(byte[] imageBytes) throws Exception {
 
-        Feature feature = Feature.newBuilder().setType(Feature.Type.DOCUMENT_TEXT_DETECTION).build();
+        // Convert byte[] → ByteString (Vision API format)
+        ByteString imgBytes = ByteString.copyFrom(imageBytes);
+
+        Image image = Image.newBuilder()
+                .setContent(imgBytes)
+                .build();
+
+        Feature feature = Feature.newBuilder()
+                .setType(Feature.Type.DOCUMENT_TEXT_DETECTION)
+                .build();
+
         AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
-                .addFeatures(feature)
                 .setImage(image)
+                .addFeatures(feature)
                 .build();
 
         try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
-            AnnotateImageResponse response = client.batchAnnotateImages(java.util.List.of(request))
-                    .getResponsesList().get(0);
+
+            AnnotateImageResponse response =
+                    client.batchAnnotateImages(List.of(request))
+                            .getResponses(0);
+
+            if (response.hasError()) {
+                throw new RuntimeException(
+                        "OCR Error: " + response.getError().getMessage()
+                );
+            }
+
             return response.getFullTextAnnotation().getText();
         }
     }

@@ -1,40 +1,59 @@
 package splitable.backend.billscanner.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import splitable.backend.billscanner.model.BillItemResponse;
+import splitable.backend.billscanner.service.BillParserService;
 import splitable.backend.billscanner.service.OcrService;
+import splitable.backend.billscanner.service.GeminiApiService;
 
-import java.nio.file.Paths;
-import java.io.File;
-
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/bill")
+@RequestMapping("/api")
 public class ScanController {
 
     private final OcrService ocrService;
+    private final GeminiApiService geminiApiService;
+    private final BillParserService billParserService;
 
-    public ScanController(OcrService ocrService) {
+    public ScanController(
+            OcrService ocrService,
+            GeminiApiService geminiApiService,
+            BillParserService billParserService
+    ) {
         this.ocrService = ocrService;
+        this.geminiApiService = geminiApiService;
+        this.billParserService = billParserService;
     }
 
-    @GetMapping("/test")
-    public void testBillParsing() throws Exception {
-        String imagePath = Paths.get(
-                System.getProperty("user.home"),
-                "Downloads",
-                "Sample-Bills",
-                "Test.jpg").toString();
+    /**
+     * 1️⃣ Accepts bill image from frontend
+     * 2️⃣ Extracts OCR text using Vision API
+     * 3️⃣ Converts unstructured text → structured JSON using Gemini
+     * 4️⃣ Parses & sanitizes JSON
+     * 5️⃣ Returns clean numeric data to frontend
+     */
+    @PostMapping(
+            value = "/scan",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public List<BillItemResponse> scanBill(
+            @RequestParam("file") MultipartFile file
+    ) throws Exception {
 
-        File file = new File(imagePath);
-        if (!file.exists()) {
-            System.err.println("File not found: " + imagePath);
-            return;
-        }
+        // 1️⃣ Convert uploaded image to bytes
+        byte[] imageBytes = file.getBytes();
 
-        System.out.println("Sending image to Google Vision API...");
-        String text = ocrService.extractTextFromImage(imagePath);
-        System.out.println("OCR Result:\n" + text);
+        // 2️⃣ OCR: image → raw unstructured text
+        String ocrText = ocrService.extractTextFromImage(imageBytes);
 
-        System.out.println("Parsing items...");
+        // 3️⃣ Gemini: raw text → structured JSON string
+        String geminiRawJson = geminiApiService.askGemini(ocrText);
+
+        // 4️⃣ Clean + parse JSON → safe numeric values
+        return billParserService.parseBill(geminiRawJson);
     }
 }
