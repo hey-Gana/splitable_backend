@@ -34,3 +34,4 @@ build/
 
 # Ignore service account keys
 keys/vision_key.json
+keys/vision_key_base64.txt
