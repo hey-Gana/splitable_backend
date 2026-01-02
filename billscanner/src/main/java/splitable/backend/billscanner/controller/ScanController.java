@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://hey-gana.github.io") // applies to all endpoints in this controller
+//@CrossOrigin(origins = "https://hey-gana.github.io") // applies to all endpoints in this controller
 public class ScanController {
 
     private final OcrService ocrService;
