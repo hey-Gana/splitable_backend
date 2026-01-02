@@ -29,11 +29,11 @@ public class ScanController {
     }
 
     /**
-     * 1️⃣ Accepts bill image from frontend
-     * 2️⃣ Extracts OCR text using Vision API
-     * 3️⃣ Converts unstructured text → structured JSON using Gemini
-     * 4️⃣ Parses & sanitizes JSON
-     * 5️⃣ Returns clean numeric data to frontend
+     * accepts bill image from frontend
+     * Extracts OCR text using Vision API
+     * Converts unstructured text → structured JSON using Gemini
+     * Parses & sanitizes JSON
+     * Returns clean numeric data to frontend
      */
     @PostMapping(
             value = "/scan",
@@ -44,16 +44,16 @@ public class ScanController {
             @RequestParam("file") MultipartFile file
     ) throws Exception {
 
-        // 1️⃣ Convert uploaded image to bytes
+        // Convert uploaded image to bytes
         byte[] imageBytes = file.getBytes();
 
-        // 2️⃣ OCR: image → raw unstructured text
+        // OCR: image → raw unstructured text
         String ocrText = ocrService.extractTextFromImage(imageBytes);
 
-        // 3️⃣ Gemini: raw text → structured JSON string
+        // Gemini: raw text → structured JSON string
         String geminiRawJson = geminiApiService.askGemini(ocrText);
 
-        // 4️⃣ Clean + parse JSON → safe numeric values
+        // Clean + parse JSON → safe numeric values
         return billParserService.parseBill(geminiRawJson);
     }
 }
